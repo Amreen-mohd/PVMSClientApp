@@ -38,7 +38,7 @@ namespace PVMSClientApp.Controllers
                 string res = "";
                 using (var client2 = new HttpClient())
                 {
-                    client2.BaseAddress = new Uri("https://localhost:44386/api/");
+                    client2.BaseAddress = new Uri("https://pvsmback.azurewebsites.net/api/");
                     var responseTask = client2.PostAsJsonAsync<passport>("PassportRenewal/Renewal", p);
                     responseTask.Wait();
                     var result2 = responseTask.Result;

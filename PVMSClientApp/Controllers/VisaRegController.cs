@@ -45,7 +45,7 @@ namespace PVMSClientApp.Controllers
                 {
                     using (var client2 = new HttpClient())
                     {
-                        client2.BaseAddress = new Uri("https://localhost:44386/api/");
+                        client2.BaseAddress = new Uri("https://pvsmback.azurewebsites.net/api/");
                         var responseTask = client2.PostAsJsonAsync<visa>("VisaReg/Visa", v);
                         responseTask.Wait();
                         var result2 = responseTask.Result;
@@ -78,7 +78,7 @@ namespace PVMSClientApp.Controllers
 
             using (var client2 = new HttpClient())
             {
-                client2.BaseAddress = new Uri("https://localhost:44386/api/");
+                client2.BaseAddress = new Uri("https://pvsmback.azurewebsites.net/api/");
                 var responseTask = client2.GetAsync("VisaReg/Success?res="+ res);
                 responseTask.Wait();
                 var result2 = responseTask.Result;

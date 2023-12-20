@@ -52,7 +52,7 @@ namespace PVMSClientApp.Controllers
                 user_registration2 res = null;
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:44386/api/");
+                    client.BaseAddress = new Uri("https://pvsmback.azurewebsites.net/api/");
                     var responseTask = client.PostAsJsonAsync<user_registration2>("User/AddUser", user);
                     responseTask.Wait();
                     var result = responseTask.Result;
@@ -101,7 +101,7 @@ namespace PVMSClientApp.Controllers
                 string res = "";
                 using (var client2 = new HttpClient())
                 {
-                    client2.BaseAddress = new Uri("https://localhost:44386/api/");
+                    client2.BaseAddress = new Uri("https://pvsmback.azurewebsites.net/api/");
                     var responseTask = client2.PostAsJsonAsync<userLogin>("User/LoginUser", user);
                     responseTask.Wait();
                     var result2 = responseTask.Result;
@@ -137,7 +137,7 @@ namespace PVMSClientApp.Controllers
             {
             using (var client2 = new HttpClient())
             {
-                client2.BaseAddress = new Uri("https://localhost:44386/api/");
+                client2.BaseAddress = new Uri("https://pvsmback.azurewebsites.net/api/");
                 var responseTask = client2.GetAsync("Email/SendEmail?email=" + email);
                 responseTask.Wait();
                 var result2 = responseTask.Result;
@@ -161,7 +161,7 @@ namespace PVMSClientApp.Controllers
             string P = null;
             using (var client2 = new HttpClient())
             {
-                client2.BaseAddress = new Uri("https://localhost:44386/");
+                client2.BaseAddress = new Uri("https://pvsmback.azurewebsites.net/");
                 var responseTask = client2.GetAsync("api/User/GetContact?res=" + phno);
                 responseTask.Wait();
                 var result2 = responseTask.Result;
@@ -194,7 +194,7 @@ namespace PVMSClientApp.Controllers
             string P = null;
             using (var client2 = new HttpClient())
             {
-                client2.BaseAddress = new Uri("https://localhost:44386/");
+                client2.BaseAddress = new Uri("https://pvsmback.azurewebsites.net/");
                 var responseTask = client2.GetAsync("api/User/GetEmail?res=" + email);
                 responseTask.Wait();
                 var result2 = responseTask.Result;

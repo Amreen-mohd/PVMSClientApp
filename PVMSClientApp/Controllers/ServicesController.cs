@@ -19,7 +19,7 @@ namespace PVMSClientApp.Controllers
             List<string> ids = new List<string>();
             using (var client2 = new HttpClient())
             {
-                client2.BaseAddress = new Uri("https://localhost:44386/api/");
+                client2.BaseAddress = new Uri("https://pvsmback.azurewebsites.net/api/");
                 var responseTask = client2.GetAsync("Services/UpdateStatus?userId=" + userId);
                 responseTask.Wait();
                 var result2 = responseTask.Result;
@@ -54,7 +54,7 @@ namespace PVMSClientApp.Controllers
                 ViewBag.msg2 = null;
                 using (var client2 = new HttpClient())
                 {
-                    client2.BaseAddress = new Uri("https://localhost:44386/api/");
+                    client2.BaseAddress = new Uri("https://pvsmback.azurewebsites.net/api/");
                     var responseTask = client2.GetAsync("Services/ApplyPassport?userId="+ userId);
                     responseTask.Wait();
                     var result2 = responseTask.Result;
@@ -77,7 +77,7 @@ namespace PVMSClientApp.Controllers
                 passport p = null;
                 using (var client2 = new HttpClient())
                 {
-                    client2.BaseAddress = new Uri("https://localhost:44386/api/");
+                    client2.BaseAddress = new Uri("https://pvsmback.azurewebsites.net/api/");
                     var responseTask = client2.GetAsync("Services/ApplyVisa?userId="+userId);
                     responseTask.Wait();
                     var result2 = responseTask.Result;
@@ -103,7 +103,7 @@ namespace PVMSClientApp.Controllers
                 List<passport> passports = null;
                 using (var client2 = new HttpClient())
                 {
-                    client2.BaseAddress = new Uri("https://localhost:44386/api/");
+                    client2.BaseAddress = new Uri("https://pvsmback.azurewebsites.net/api/");
                     var responseTask = client2.GetAsync("Services/PassportRenewal?userId="+userId);
                     responseTask.Wait();
                     var result2 = responseTask.Result;
@@ -132,7 +132,7 @@ namespace PVMSClientApp.Controllers
                 List<visa> visas = null;
                 using (var client2 = new HttpClient())
                 {
-                    client2.BaseAddress = new Uri("https://localhost:44386/api/");
+                    client2.BaseAddress = new Uri("https://pvsmback.azurewebsites.net/api/");
                     var responseTask = client2.GetAsync("Services/VisaCancellation?userId="+userId);
                     responseTask.Wait();
                     var result2 = responseTask.Result;
@@ -165,7 +165,7 @@ namespace PVMSClientApp.Controllers
             userProfile user = null;
             using (var client2 = new HttpClient())
             {
-                client2.BaseAddress = new Uri("https://localhost:44386/api/");
+                client2.BaseAddress = new Uri("https://pvsmback.azurewebsites.net/api/");
                 var responseTask = client2.GetAsync("Services/GetUser?userId="+userId);
                 responseTask.Wait();
                 var result2 = responseTask.Result;
@@ -188,7 +188,7 @@ namespace PVMSClientApp.Controllers
             user.userId = Session["userId"].ToString();
             using (var client2 = new HttpClient())
             {
-                client2.BaseAddress = new Uri("https://localhost:44386/api/");
+                client2.BaseAddress = new Uri("https://pvsmback.azurewebsites.net/api/");
                 var responseTask = client2.PostAsJsonAsync<userProfile>("Services/UpdateUser", user);
                 responseTask.Wait();
                 var result2 = responseTask.Result;
