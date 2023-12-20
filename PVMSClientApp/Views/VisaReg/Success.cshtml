@@ -1,0 +1,39 @@
+﻿@model PVMSClientApp.Models.DAO.visa
+@{
+    Layout = "~/Views/Shared/_PresentMyLogin.cshtml";
+    ViewBag.Title = "Success";
+}
+<head>
+    <style>
+        .container{
+            display:inline-block;
+            align-content:center;
+            justify-content:center;
+            margin-top:100px;
+            margin-left:200px;
+            margin-bottom:150px;
+        }
+        .inner-text{
+            color:black;
+            font-size:large;
+            font-weight:bold;
+        }
+    </style>
+</head>
+<h2 style="text-align:center">Visa Registration Successful</h2>
+<body>
+    <div class="container">
+        <p class="inner-text">
+            Dear User your Visa request has been accepted successfully
+            with Visaid: <h2>@Model.visaId</h2><br />
+            User Id: @Model.userId<br />
+            Destination: @Model.country<br />
+            Employee Occupation: @Model.occupation<br />
+            Date of Application: @Model.dateOfApplication<br />
+            Date of Issue: @Model.dateOfIssue<br />
+            Date of Expiry: @Model.dateOfExpiry<br />
+            Registration Cost: @Model.cost<br />
+        </p>
+        <a href="../Services/Index" style="text-decoration:none;background:#3c07a6;color:white;padding:10px;border-radius:5px">Back</a>
+    </div>
+</body>

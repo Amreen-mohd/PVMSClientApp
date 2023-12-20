@@ -1,0 +1,154 @@
+﻿@model PVMSClientApp.Models.DAO.userProfile
+@{
+    ViewBag.Title = "UserProfile";
+    Layout = "~/Views/Shared/_PresentMyLogin.cshtml";
+}
+
+<head>
+    <style>
+        .form {
+            display: inline-block;
+            background-color: #d5d8ec;
+            position: relative;
+            top: 4px;
+            margin-top: 150px;
+            margin-left: 500px;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .container {
+            height: 100vh;
+            width: 100%;
+            background: url("https://www.freevector.com/uploads/vector/preview/2446/FreeVector-Continents-Map.jpg");
+            background-size: contain;
+        }
+
+        .form-input {
+            padding: 5px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 5px 0;
+            font-weight: bolder;
+            font-family: "Montserrat", sans-serif;
+        }
+
+        .submit-button {
+            padding: 8px 20px;
+            background-color: #3c07a6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            text-decoration: none;
+            display: inline-block;
+            vertical-align: middle;
+            font-size:smaller;
+            font-weight: normal;
+            font-family: "Montserrat", sans-serif;
+        }
+
+            .submit-button:hover {
+                color: #3c07a6;
+                background-color: white;
+                border: 2px solid #3c07a6;
+            }
+
+        .radio-button {
+            margin-right: 5px;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            var form = document.getElementById("profile-form");
+            var formInputs = form.querySelectorAll(".form-input");
+            var editButton = document.getElementById("edit-btn");
+            var saveButton = document.getElementById("save-btn");
+
+            formInputs.forEach(function (input) {
+                input.disabled = true;
+            });
+
+            editButton.addEventListener("click", function () {
+                formInputs.forEach(function (input) {
+                    input.disabled = false;
+                });
+                editButton.style.display = "none";
+                saveButton.style.display = "inline-block";
+            });
+
+            saveButton.addEventListener("click", function () {
+                form.submit();
+            });
+        });
+
+
+    </script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="form">
+            <form method="post" action="UserProfile" id="profile-form">
+                
+                <h3>Your Profile</h3>
+                <p>Hi! <b>@ViewBag.userId</b></p>
+                @using (Html.BeginForm())
+                {
+                    
+                    <div>
+
+                        @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-input", @placeholder = "Firstname" } })
+                        @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
+
+                        @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-input", @placeholder = "Lastname" } })
+                        @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
+
+                    </div>
+
+
+                    <div>
+
+                        @Html.EditorFor(model => model.contactNo, new { htmlAttributes = new { @class = "form-input", @placeholder = "Contact No" } })
+                        @Html.ValidationMessageFor(model => model.contactNo, "", new { @class = "text-danger" })
+
+
+                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-input", @placeholder = "Email" } })
+                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div>
+                        @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-input", @placeholder = "Enter your address" } })
+                        @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+
+                        @Html.EditorFor(model => model.qualification, new { htmlAttributes = new { @class = "form-input", @placeholder = "Qualification" } })
+                        @Html.ValidationMessageFor(model => model.qualification, "", new { @class = "text-danger" })
+                    </div>
+                    <div style="margin-top:5px;margin-bottom:5px">
+                        Your current passportId is : <b>@ViewBag.passportId</b><br />
+                        Your current Visas are : @foreach (var i in ViewBag.visaId) { 
+                            <br />
+                            <b>@i</b>
+                        }
+
+                    </div>
+                    <div>
+                        @*<button type="button" id="edit-btn" class="submit-button">
+                            Edit
+                        </button>*@
+                        <button type="submit" id="save-btn" class="submit-button" style="display:none">
+                            Save
+                        </button>
+                        @Html.ActionLink("Back", "Index", "Services", null, new { @class = "submit-button" })
+                    </div>
+                }
+            </form>
+        </div>
+    </div>
+</body>

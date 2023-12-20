@@ -1,0 +1,225 @@
+﻿@model PVMSClientApp.Models.DAO.visa
+@using CaptchaMvc.HtmlHelpers
+@{
+    Layout = "~/Views/Shared/_PresentMyLogin.cshtml";
+    ViewBag.Title = "VisaRegistration";
+}
+
+<h2>VisaRegistration</h2>
+<style>
+    .form {
+        display: inline-block;
+        background-color: #d5d8ec;
+        position: relative;
+        top: 4px;
+        margin-top: 80px;
+        margin-left: 500px;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .container {
+        height: 100vh;
+        width: 100%;
+        background: url("https://www.freevector.com/uploads/vector/preview/2446/FreeVector-Continents-Map.jpg");
+        background-size: contain;
+    }
+
+    .form-input {
+        padding: 5px;
+        width: 200px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 5px 0;
+    }
+
+    .submit-button {
+        padding: 10px 30px;
+        background-color: #3c07a6;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+        text-decoration: none;
+        display: inline-block;
+        vertical-align: middle;
+        font-size: medium;
+        font-weight: bold;
+        font-family: "Montserrat", sans-serif;
+    }
+
+        .submit-button:hover {
+            color: #3c07a6;
+            background-color: white;
+            border: 2px solid #3c07a6;
+        }
+
+    .radio-button {
+        margin-right: 5px;
+    }
+
+    .alert-box {
+        position: fixed;
+        top: -100px;
+        left: 50%;
+        transform: translateX(-50%) translateY(0);
+        height: 150px;
+        width: 300px;
+        background-color: white;
+        border: 1px solid #3c07a6;
+        border-radius: 5px;
+        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+        padding: 15px;
+        text-align: center;
+        z-index: 1000;
+        opacity: 0;
+        transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        font-weight: bold;
+    }
+
+    #alertText {
+        display: block;
+    }
+
+    .alert-box.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(300px);
+    }
+
+    td a {
+        color: #3c07a6;
+    }
+</style>
+<style>
+    #popup-dialog {
+        display: none;
+        position: fixed;
+        top: 48%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        height: 150px;
+        width: 400px;
+        margin-left: 20px;
+        border-radius: 10px;
+    }
+
+    #popup-message {
+        margin-top: 8px;
+    }
+
+    #close-button {
+        padding: 10px 20px;
+        background-color: #3c07a6;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+        margin-left: 150px;
+    }
+</style>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+        $(document).ready(function () {
+            const flag = '@ViewBag.cmsg';
+            if (flag != "Yes") {
+                @*const msg1 = '@ViewBag.msg1';*@
+                @*const msg2 = '@ViewBag.msg2';*@
+                $("#popup-dialog").fadeIn();
+                $("#popup-message").text(`${flag}` );
+                $("#close-button").on("click", function () {
+                    $("#popup-dialog").fadeOut();
+
+            });
+        }
+        });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $("#createButton").click(function (event) {
+            event.preventDefault();
+            $("#alertBox").addClass("show");
+        });
+
+
+        $("#okButton").click(function () {
+            $("#alertBox").removeClass("show");
+            $("#fromCaptcha").unbind("submit").submit();
+        });
+
+        $("#noButton").click(function () {
+            $("#alertBox").removeClass("show");
+        });
+    });
+
+</script>
+<div class="container">
+    <div class="form">
+        @using (Html.BeginForm("VisaRegistration", "VisaReg", FormMethod.Post, htmlAttributes: new { @enctype = "multipart/form-data", @id = "fromCaptcha" }))
+        {
+            <table>
+                <tr>
+                    <td>User Id:</td>
+                    <td>
+                        @ViewBag.userId
+                    </td>
+                </tr>
+                <tr>
+                    <td>Passport Id:</td>
+                    <td>
+                        @ViewBag.passportId
+                    </td>
+                </tr>
+                <tr>
+                    <td>Country:</td>
+                    <td>
+                        @Html.DropDownListFor(model => model.country, new SelectList(ViewBag.vlist, "Country", "Country"), "Select", new { @class = "form-input" })
+                    </td>
+                    <td>
+                        @Html.ValidationMessageFor(model => model.country, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Occupation:
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(model => model.occupation, new SelectList(ViewBag.vlist, "Occupation", "Occupation"), "Select", new { @class = "form-input" })
+                    </td>
+                    <td>
+                        @Html.ValidationMessageFor(model => model.occupation, "", new { @class = "text-danger" })
+                    </td>
+                </tr>
+                <tr class="date" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+                    <td>Date of Application:</td>
+                    <td style="position:relative;left:40px">
+                        @DateTime.Now.ToString("yyyy-MM-dd")
+                    </td>
+                    <td>@Html.ValidationMessage("doc", new { style = "color: red;" })</td>
+                <tr style="text-decoration:none"><td>Enter captcha:</td><td>@Html.MathCaptcha()</td></tr>
+                <tr><td><p class="text-danger">@ViewBag.ErrorMessage</p></td></tr>
+                <tr>
+                    <td><input id="createButton" type="submit" class="submit-button" value="Create" /></td>
+                    <td>@Html.ActionLink("Back", "Index", "Services", null, new { @class = "submit-button" })</td>
+                </tr>
+            </table>
+        }
+    </div>
+    <div id="alertBox" class="alert-box">
+        <span id="alertText">Please check your details before submission,Are you sure want to submit?</span>
+        <button id="okButton" class="submit-button">Yes</button>
+        <button id="noButton" class="submit-button">No</button>
+    </div>
+    <div id="popup-dialog">
+        <b><p id="popup-message"></p></b>
+        <button id="close-button">OKAY!</button>
+    </div>
+</div>

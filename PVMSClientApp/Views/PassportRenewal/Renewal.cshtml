@@ -1,0 +1,178 @@
+﻿@model PVMSClientApp.Models.DAO.passport
+@{
+
+    Layout = "~/Views/Shared/_PresentMyLogin.cshtml";
+    ViewBag.Title = "Renewal";
+}
+
+<h2>Passport Renewal</h2>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    function cityDropdown() {
+        var selectedStateId = $("#stateDropdown").val();
+        $.ajax({
+            url: "/PassportRenewal/getcities/",
+            type: "POST",
+            data: "{'sId':'" + $("#stateDropdown").val() + "'}",
+            dataType: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var cityDropdown = $("#cityDropdown");
+                cityDropdown.empty();
+                cityDropdown.append($('<option>').text('Select').val(''));
+                for (i = 0; i < data.length; i++) {
+                    cityDropdown.append("<option value='" + data[i].city_name + "'>" + data[i].city_name + "</option>");
+                }
+            },
+            error: function (x, err) {
+                alert(x.responseText);
+                alert(x.readyState);
+            }
+        });
+    }
+    $(document).ready(function () {
+        $("#stateDropdown").change(function () {
+            cityDropdown();
+        });
+    });
+</script>
+<style>
+    .form {
+        display: inline-block;
+        background-color: #d5d8ec;
+        position: relative;
+        top: 4px;
+        margin-top: 80px;
+        margin-left: 500px;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .container {
+        height: 100vh;
+        width: 100%;
+        background: url("https://www.freevector.com/uploads/vector/preview/2446/FreeVector-Continents-Map.jpg");
+        background-size: contain;
+    }
+
+    .form-input {
+        padding: 5px;
+        width: 200px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 5px 0;
+    }
+
+    .submit-button {
+        padding: 10px 30px;
+        background-color: #3c07a6;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+        text-decoration: none;
+        display: inline-block;
+        vertical-align: middle;
+        font-size: medium;
+        font-weight: bold;
+        font-family: "Montserrat", sans-serif;
+    }
+
+        .submit-button:hover {
+            color: #3c07a6;
+            background-color: white;
+            border: 2px solid #3c07a6;
+        }
+
+    .radio-button {
+        margin-right: 5px;
+    }
+
+    .alert-box {
+        position: fixed;
+        top: -100px;
+        left: 50%;
+        transform: translateX(-50%) translateY(0);
+        height: 150px;
+        width: 300px;
+        background-color: white;
+        border: 1px solid #3c07a6;
+        border-radius: 5px;
+        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+        padding: 15px;
+        text-align: center;
+        z-index: 1000;
+        opacity: 0;
+        transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        font-weight: bold;
+    }
+
+    #alertText {
+        display: block;
+    }
+
+    .alert-box.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(300px);
+    }
+
+    td a {
+        color: #3c07a6;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $("#createButton").click(function (event) {
+            event.preventDefault();
+            $("#alertBox").addClass("show");
+        });
+
+
+        $("#okButton").click(function () {
+            $("#alertBox").removeClass("show");
+            $("#fromCaptcha").unbind("submit").submit();
+        });
+        $("#noButton").click(function () {
+            $("#alertBox").removeClass("show");
+        });
+    });
+
+</script>
+<div class="container">
+    <div class="form">
+        @using (Html.BeginForm())
+        {
+            <table>
+                @*<tr><td>User Id:</td><td>@Request.Cookies["userId"].Value</td></tr>*@
+                <tr><td>@Html.TextBox("userId", Model.userId, new { disabled = "disabled", @class = "form-control form-input" })</td><td>@Html.ValidationMessage("userId", new { style = "color: red;", disabled = "disabled" })</td></tr>
+
+                <tr><td>Country:</td><td>@Html.TextBox("country", "India", new {disabled="disabled", @class = "form-input" })</td></tr>
+                <tr><td>State:</td><td>@Html.DropDownList("state", new SelectList(ViewBag.slist, "state_name", "state_name"), "Select", new { id = "stateDropdown", @class = "form-input" })</td></tr>
+                <tr><td>City:</td><td>@Html.DropDownList("city", new SelectList(Enumerable.Empty<string>(), "Value", "Text"), "Select", new { id = "cityDropdown", @class = "form-input" })</td><td>@Html.ValidationMessage("city", new { style = "color: red;" })</td></tr>
+                <tr><td>Pin:</td><td>@Html.TextBox("pin", Model.pin, new { @class = "form-input" })</td><td>@Html.ValidationMessage("pin", new { style = "color: red;" })</td></tr>
+                <tr><td>Type Of Service:</td><td>@Html.RadioButton("typeOfService", "Normal", new { @class = "radio-button" }) Normal</td><td>@Html.RadioButton("typeOfService", "Tatkal") Tatkal</td><td>@Html.ValidationMessage("typeOfService", new { style = "color: red;" })</td></tr>
+                <tr><td>Booklet Type:</td><td>@Html.RadioButton("bookletType", "30 Pages", new { @class = "radio-button" }) 30 Pages</td><td>@Html.RadioButton("bookletType", "60 Pages") 60 Pages</td><td>@Html.ValidationMessage("bookletType", new { style = "color: red;" })</td></tr>
+
+                <tr><td><p style="text-align:center;color:red" id="msg"></p></td></tr>
+                <tr>
+                    <td><input type="submit" class="submit-button" value="Renewal" /></td>
+                    <td>@Html.ActionLink("Back", "Index", "Services", null, new { @class = "submit-button" })</td>
+                </tr>
+                @if (ViewBag.msg != null)
+                {
+                    <tr><td>@ViewBag.msg</td></tr>
+                }
+
+            </table>
+        }
+    </div>
+    <div id="alertBox" class="alert-box">
+        <span id="alertText">Please check your details before submission,Are you sure want to submit?</span>
+        <button id="okButton" class="submit-button">Yes</button>
+        <button id="noButton" class="submit-button">No</button>
+    </div>
+</div>

@@ -1,0 +1,278 @@
+﻿@model PVMSClientApp.Models.DAO.userLogin
+@{
+    Layout = "~/Views/Shared/_PresentUserLoginReg.cshtml";
+}
+
+
+<head>
+    <style>
+
+        input, textarea, select, button {
+            font-family: "Montserrat-Regular";
+            font-size: 15px;
+            color: #666;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        :focus {
+            outline: none;
+        }
+
+
+        .inner {
+            min-width: 861px;
+            transform: translateX(47px);
+            margin: auto;
+            display: flex;
+            background: white;
+            border-radius: 20px;
+            padding-top: 35px;
+            padding-bottom: 35px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .image-holder img {
+            border-radius: 15px;
+            transform: translateX(-94px);
+        }
+
+        form {
+            padding-top: 42px;
+            min-width: 63.88%;
+            transform: translateX(-34px);
+        }
+
+        h3 {
+            font-size: 25px;
+            text-align: center;
+            margin-bottom: 21px;
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        .form-control {
+            height: 47px;
+            width: 50%;
+            display: block;
+            border: 1px solid #e6e6e6;
+            background: none;
+            border-radius: 5px;
+            padding: 0 19px;
+            border: 1px solid #333;
+        }
+
+            .form-control:focus {
+                border: 2px solid black;
+            }
+
+
+
+        select.form-control {
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            color: #999;
+        }
+
+            select.form-control option[value=""][disabled] {
+                display: none;
+            }
+
+        textarea.form-control {
+            width: 100%;
+            padding-top: 13px;
+            padding-bottom: 13px;
+        }
+
+        .form-row {
+            display: flex;
+            margin-bottom: 20px;
+            padding-left: 110px;
+            width: 150%;
+        }
+
+
+
+        button {
+            height: 47px;
+            width: 174px;
+            display: flex;
+            border: none;
+            color: #fff;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            margin-top: 30px;
+            cursor: pointer;
+            font-family: "Montserrat-Medium";
+            text-transform: uppercase;
+            background: #3c07a6;
+            border-radius: 5px;
+            -webkit-transform: perspective(1px) translateZ(0);
+            transform: perspective(1px) translateZ(0);
+            overflow: hidden;
+            -webkit-transition-duration: 0.5s;
+            transition-duration: 0.5s;
+            -webkit-transition-property: color, background-color;
+            transition-property: color, background-color;
+        }
+
+            button i {
+                margin-left: 8px;
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0);
+            }
+
+            button:hover {
+                -webkit-animation-name: hvr-back-pulse;
+                animation-name: hvr-back-pulse;
+                -webkit-animation-duration: 1s;
+                animation-duration: 1s;
+                -webkit-animation-delay: 0.5s;
+                animation-delay: 0.5s;
+                -webkit-animation-timing-function: linear;
+                animation-timing-function: linear;
+                -webkit-animation-iteration-count: infinite;
+                animation-iteration-count: infinite;
+                background-color: white;
+                color: #3c07a6;
+                border: 1px solid #3c07a6;
+            }
+
+                button:hover i {
+                    -webkit-animation-name: hvr-icon-buzz-out;
+                    animation-name: hvr-icon-buzz-out;
+                    -webkit-animation-duration: 0.75s;
+                    animation-duration: 0.75s;
+                    -webkit-animation-timing-function: linear;
+                    animation-timing-function: linear;
+                    -webkit-animation-iteration-count: infinite;
+                    animation-iteration-count: infinite;
+                }
+    </style>
+    <style>
+        #popup-dialog {
+            display: none;
+            position: fixed;
+            top: 48%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            height: 100px;
+            width: 400px;
+            margin-left: 20px;
+            border-radius: 10px;
+        }
+
+        #popup-message {
+            margin-top: 8px;
+        }
+
+        #close-button {
+            width: 150px;
+            background-color: rgb(244, 141, 141);
+        }
+    </style>
+    <style>
+        .container {
+            height: 100vh;
+            width: 100%;
+            background-image: url("https://www.freevector.com/uploads/vector/preview/2446/FreeVector-Continents-Map.jpg");
+            background-size: contain;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0px;
+            padding-bottom: 0px;
+        }
+
+        .text-danger{
+            display:block;
+            color:red;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        const flag = '@TempData["Flag"]';
+        if (flag === "true") {
+            const userID = '@TempData["UserID"]';
+            const password = '@TempData["Password"]';
+            $("#popup-dialog").fadeIn();
+            $("#popup-message").text(`Your user ID is: ${userID} and your password is: ${password}`);
+            $("#close-button").on("click", function () {
+                $("#popup-dialog").fadeOut();
+            });
+        }
+    });
+    </script>
+    <script src='https://www.google.com/recaptcha/api.js' type="text/javascript"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <div class="inner">
+                <div class="image-holder" style="padding-top:30px">
+
+                    <img style="height: 400px; width: 280px;" src="~/Images/pvms8.jpg" />
+                </div>
+                <form method="post" action="UserLogin" style="padding-top:50px">
+                    <h3>Login Form</h3>
+                    @using (Html.BeginForm())
+                    {
+                        <div class="form-row">
+                            @Html.EditorFor(model => model.userId, new { htmlAttributes = new { @class = "form-control", @placeholder = "User Id" } })
+                            
+                        </div>
+                        <div class="form-row">
+                            @Html.ValidationMessageFor(model => model.userId, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-row">
+                            @Html.EditorFor(model => model.contactNo, new { htmlAttributes = new { @class = "form-control", @placeholder = "Contact No" } })
+                            
+                        </div>
+                        <div class="form-row">
+                            @Html.ValidationMessageFor(model => model.contactNo, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-row">
+                            @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Password", type = "password" } })
+                            
+                        </div>
+                        <div class="form-row">
+                            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-row">
+                            <div class="g-recaptcha" data-sitekey="6Lc3E6onAAAAAOtGAi0_uAHZWxvDoLV4UEBQxsJu"></div>
+                        </div>
+                        <p class="text-danger">@ViewBag.msg</p>
+                        <button type="submit">
+                            Login
+                            <i class="zmdi zmdi-long-arrow-right"></i>
+                        </button>
+                        <div class="form-row">
+                            <a href="/User/ForgotPassword" style="padding-left: 230px; padding-top: 10px; color: #3c07a6">Forgot password</a>
+                        </div>
+                        <p style="padding-left:100px">
+                            New here?
+                            <a href="UserRegistration">
+                                Register
+                            </a>
+                        </p>
+                    }
+
+                </form>
+
+            </div>
+        </div>
+        <div id="popup-dialog">
+            <b><p id="popup-message"></p></b>
+            <button id="close-button">I Remembered!!!</button>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,47 @@
+﻿@model PVMSClientApp.Models.DAO.passport
+@{
+    Layout = "~/Views/Shared/_PresentMyLogin.cshtml";
+    ViewBag.Title = "Success";
+}
+<head>
+    <style>
+        .success {
+            display: block;
+            margin-top: 300px;
+            border: 1px solid #3c07a6;
+            width: 400px;
+            border-radius: 5px;
+        }
+        .success-title{
+            text-align:center;
+        }
+        .success-desc{
+            text-align:center;
+        }
+        .success-item{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            margin-bottom:300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-item">
+        <div class="success">
+            <h2 class="success-title">Passport Registration Successful</h2>
+            <p>
+                <h4 class="success-desc">
+                    Need the passport number while giving payment<br /> Please
+                    note down your Id
+                    @Model.passportId
+                    ”<br />. Passport application cost is Rs.
+                    @Model.amount
+                </h4>
+                <a href="../Services/Index" style="margin-left:170px;text-decoration:none;background:#3c07a6;color:white;padding:10px;border-radius:5px;">Back</a>
+            </p>
+        </div>
+        
+    </div>
+    
+</body>

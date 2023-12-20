@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passport Seva</title>
+    <link rel="shortcut icon" href="~/Images/pvms.png">
+    <link href="~/Styles/StyleSheet6.css" rel="stylesheet" />
+    <script type="text/javascript">
+        function logout() { window.history.forward(); }
+        setTimeout("logout()", 0);
+        window.onunload = function () { null };
+    </script>
+    <style>
+        .footer-link {
+            text-decoration: none;
+            color: white;
+        }
+
+            .footer-link:hover {
+                font-weight: bold;
+                color: white;
+            }
+
+        .row li {
+            list-style: none;
+        }
+
+        .row h4 {
+            color: white;
+            font-weight: bolder;
+        }
+
+        .first{
+            padding-left:100px;
+            padding-right:100px;
+        }
+        .second{
+            padding-right:100px;
+        }
+        
+        .footer{
+            display:inline-block;
+            
+        }
+        .footer-items
+        {
+            display:flex;
+            align-items:center;
+        }
+        .footer-item{
+            display:inline-block;
+            padding-left:50px;
+        }
+        .main-footer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="backdrop"></div>
+    @*<div class="modal">
+            <h1 class="modal__title">Do you want to continue?</h1>
+            <div class="modal__actions">
+                <a href="start-hosting/index.html" class="modal__action">Yes!</a>
+                <button class="modal__action modal__action--negative" type="button">No!</button>
+            </div>
+        </div>*@
+    <header class="main-header">
+        <div>
+            <button class="toggle-button">
+                <span class="toggle-button__bar"></span>
+                <span class="toggle-button__bar"></span>
+                <span class="toggle-button__bar"></span>
+            </button>
+            <a href="index.html" class="main-header__brand">
+                <img src="~/Images/pvms.png" alt="uHost - Your favorite hosting company">
+            </a>
+            <p class="header-title">Passport Seva</p>
+        </div>
+        <nav class="main-nav">
+            <ul class="main-nav__items">
+                <li class="dropdown">
+                    <a class="dropdown-toggle">
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp"
+                             class="circle-image"
+                             height="22"
+                             alt="Portrait of a Woman"
+                             loading="lazy" />
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="../../Services/UserProfile">My profile</a>
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item" href="../../Home/Index" onclick="logout()">Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="backdrop"></div>
+
+        </nav>
+    </header>
+    <nav class="mobile-nav">
+        <ul class="mobile-nav__items">
+            
+            <li class="dropdown">
+                <a class="dropdown-toggle"
+                   href="#">
+                    <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img (31).webp"
+                         class="circle-image"
+                         height="22"
+                         alt="Portrait of a Woman"
+                         loading="lazy" />
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a class="dropdown-item" href="../../Services/UserProfile">My profile</a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item" href="../../Home/Logout">Logout</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="renderbody">
+        @RenderBody()
+    </div>
+    <footer class="main-footer">
+        <div class="footer" id="footer">
+                <div class="row">
+                    <ul class="footer-items">
+                        <li class="footer-item"><a class="footer-link" href="~/Cont/tc2.html">Terms & Conditions</a></li>
+                        <li class="footer-item"><a class="footer-link" href="~/Cont/FAQ2.html">FAQs</a>
+                    </ul>
+                </div>
+            </div>
+        
+    </footer>
+    <script src="~/Scripts/script.js"></script>
+</body>
+
+</html>

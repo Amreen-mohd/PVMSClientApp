@@ -1,0 +1,343 @@
+﻿@model PVMSClientApp.Models.DAO.user_registration2
+@{
+    Layout = "~/Views/Shared/_PresentUserLoginReg.cshtml";
+}
+<head>
+    <style>
+        input, textarea, select, button {
+            font-family: "Montserrat-Regular";
+            font-size: 15px;
+            color: #666;
+        }
+
+
+
+        .wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .inner {
+            min-width: 861px;
+            transform: translateX(47px);
+            margin: auto;
+            display: flex;
+            background: white;
+            border-radius: 20px;
+            padding-top: 35px;
+            padding-bottom: 35px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .image-holder img {
+            border-radius: 15px;
+            transform: translateX(-94px);
+        }
+
+        form {
+            padding-top: 42px;
+            min-width: 63.88%;
+            transform: translateX(-34px);
+        }
+
+        h3 {
+            font-size: 25px;
+            text-align: center;
+            margin-bottom: 21px;
+            color: #333;
+            text-transform: uppercase;
+        }
+
+        .form-control {
+            height: 47px;
+            display: block;
+            border: 1px solid #e6e6e6;
+            background: none;
+            border-radius: 5px;
+            padding: 0 19px;
+            border: 1px solid #333;
+        }
+
+            .form-control:focus {
+                border: 1px solid #f4d5cc;
+            }
+
+        select.form-control {
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            color: #999;
+        }
+
+            select.form-control option[value=""][disabled] {
+                display: none;
+            }
+
+        textarea.form-control {
+            width: 100%;
+            padding-top: 13px;
+            padding-bottom: 13px;
+        }
+
+        .form-row {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+            .form-row .form-control {
+                width: 50%;
+            }
+
+                .form-row .form-control:first-child {
+                    margin-right: 20px;
+                }
+
+
+
+
+        button {
+            height: 47px;
+            width: 174px;
+            display: flex;
+            border: none;
+            color: #fff;
+            align-items: center;
+            justify-content: center;
+            margin: auto;
+            margin-top: 30px;
+            cursor: pointer;
+            font-family: "Montserrat-Medium";
+            text-transform: uppercase;
+            background: #3c07a6;
+            border-radius: 5px;
+            -webkit-transform: perspective(1px) translateZ(0);
+            transform: perspective(1px) translateZ(0);
+            overflow: hidden;
+            -webkit-transition-duration: 0.5s;
+            transition-duration: 0.5s;
+            -webkit-transition-property: color, background-color;
+            transition-property: color, background-color;
+        }
+
+            button i {
+                margin-left: 8px;
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0);
+            }
+
+            button:hover {
+                -webkit-animation-name: hvr-back-pulse;
+                animation-name: hvr-back-pulse;
+                -webkit-animation-duration: 1s;
+                animation-duration: 1s;
+                -webkit-animation-delay: 0.5s;
+                animation-delay: 0.5s;
+                -webkit-animation-timing-function: linear;
+                animation-timing-function: linear;
+                -webkit-animation-iteration-count: infinite;
+                animation-iteration-count: infinite;
+                background-color: white;
+                color: #3c07a6;
+                border: 1px solid #3c07a6;
+            }
+
+                button:hover i {
+                    -webkit-animation-name: hvr-icon-buzz-out;
+                    animation-name: hvr-icon-buzz-out;
+                    -webkit-animation-duration: 0.75s;
+                    animation-duration: 0.75s;
+                    -webkit-animation-timing-function: linear;
+                    animation-timing-function: linear;
+                    -webkit-animation-iteration-count: infinite;
+                    animation-iteration-count: infinite;
+                }
+
+        .container {
+            height: 100vh;
+            width: 100%;
+            background: url("https://www.freevector.com/uploads/vector/preview/2446/FreeVector-Continents-Map.jpg");
+            background-size: contain;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0px;
+            padding-bottom: 0px;
+        }
+
+        .text-danger {
+            color: red;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+    <script>$(document).ready(function () {
+        2
+        $("#contactno").blur(function () {
+                $.ajax({
+                    url: "/User/verifyphone/",
+                    type: "POST",
+                    data: "{'phno':'" + $("#contactno").val() + "'}",
+                    dataType: "json",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        $("#msg1").text(data);
+                        if (data === "") {
+                            $("#myButton").prop("disabled", false);
+
+                        }
+                        else {
+                            
+                                $("#myButton").prop("disabled", true);
+
+                            
+                        }
+                    },
+                    error: function (x, err) {
+                        alert(x.responseText);
+                        alert(x.readyState);
+                    }
+                });
+            });
+            $("#email").blur(function () {
+                $.ajax({
+                    url: "/User/verifyemail/",
+                    type: "POST",
+                    data: "{'email':'" + $("#email").val() + "'}",
+                    dataType: "json",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        $("#msg2").text(data);
+                        if (data === "") {
+                            $("#myButton").prop("disabled", false);
+
+                        }
+
+                        else {
+
+                            $("#myButton").prop("disabled", true);
+
+
+                        }
+                    },
+                    error: function (x, err) {
+                        alert(x.responseText);
+                        alert(x.readyState);
+                    }
+                });
+            });
+        });</script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="wrapper" style="padding-top:30px">
+            <div class="inner">
+                <div class="image-holder" style="padding-top:60px">
+
+                    <img style="height:400px;width:280px;" src="~/Images/pvms7.jpg" />
+                </div>
+                <form method="post" action="UserRegistration" style="padding-top:10px">
+                    <h3>Registration Form</h3>
+                    @using (Html.BeginForm())
+                    {
+                        <div class="form-row">
+
+                            @Html.EditorFor(model => model.firstName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Firstname" } })
+                            @Html.ValidationMessageFor(model => model.firstName, "", new { @class = "text-danger" })
+
+                            @Html.EditorFor(model => model.lastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Lastname" } })
+                            @Html.ValidationMessageFor(model => model.lastName, "", new { @class = "text-danger" })
+
+                        </div>
+                        <div class="form-row">
+                            @Html.EditorFor(model => model.dob, new
+                       {
+                           htmlAttributes = new
+                           {
+                               @class = "form-control",
+                               @type="date",
+                               @placeholder = "Date of birth",
+
+                               max = DateTime.Now.ToString("yyyy-MM-dd")
+                           }
+                       })
+                            @Html.ValidationMessageFor(model => model.dob, "", new { @class = "text-danger" })
+
+                            @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter your address" } })
+                            @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+
+
+                        </div>
+
+
+
+                        <div class="form-row">
+
+                            @Html.EditorFor(model => model.contactNo, new { htmlAttributes = new { id = "contactno", @class = "form-control", @placeholder = "Contact No" } })
+                            @Html.ValidationMessageFor(model => model.contactNo, "", new { @class = "text-danger" })
+                            <p id="msg1" style="color:red"></p>
+
+
+                            @Html.EditorFor(model => model.email, new { htmlAttributes = new { id = "email", @class = "form-control", @placeholder = "Email" } })
+                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                            <p id="msg2" style=" color:red"></p>
+
+                        </div>
+
+                        <div class="form-row">
+                            @Html.LabelFor(model => model.gender, "Gender", htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="form-group" style="padding-right:120px">
+
+                                @Html.RadioButtonFor(model => model.gender, "Male", new { htmlAttributes = new { @class = "form-control" } }) Male<br />
+                                @Html.RadioButtonFor(model => model.gender, "Female", new { htmlAttributes = new { @class = "form-control" } }) Female<br />
+                                @Html.RadioButtonFor(model => model.gender, "Trans", new { htmlAttributes = new { @class = "form-control" } }) Trans
+                                @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+                            </div>
+
+                            @Html.EditorFor(model => model.qualification, new { htmlAttributes = new { @class = "form-control", @placeholder = "Qualification" } })
+                            @Html.ValidationMessageFor(model => model.qualification, "", new { @class = "text-danger" })
+
+
+
+                        </div>
+
+                        <div class="form-row">
+
+
+                            @Html.DropDownListFor(model => model.hintQuestion, new SelectList(ViewBag.qlist), "Hint Question", new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.hintQuestion, "", new { @class = "text-danger" })
+                            <div style="padding-left:40px">
+
+                            </div>
+                            @Html.EditorFor(model => model.hintAnswer, new { htmlAttributes = new { @class = "form-control", @placeholder = "Hint Answer" } })
+                            @Html.ValidationMessageFor(model => model.hintAnswer, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <button id="myButton">
+                            Register
+                            <i class="zmdi zmdi-long-arrow-right"></i>
+                        </button>
+                        <p>
+                            Already have an account?
+                            <a href="../User/userLogin">
+                                Login
+                            </a>
+                        </p>
+                    }
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    @if(ViewBag.msg!=null)
+    {
+        @ViewBag.msg;
+    }
+</body>

@@ -1,0 +1,10 @@
+﻿@{
+    if (Session["userId"] != null)
+    {
+        Layout = "~/Views/Shared/_PresentMyLogin.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_PresentMaster.cshtml";
+    }
+}

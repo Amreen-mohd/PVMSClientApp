@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passport Seva</title>
+    <link rel="shortcut icon" href="~/Images/pvms.png">
+    <link rel="stylesheet" href="~/Styles/StyleSheet4.css">
+    <script src="~/Scripts/script.js"></script>
+    <style>
+        li a:hover {
+            color: #3c07a6;
+        }
+
+        body {
+            margin-left: 20px;
+        }
+
+        .footer-link{
+            text-decoration:none;
+            color:white;
+        }
+
+        .footer-link:hover{
+            font-weight:bold;
+            color:white;
+        }
+
+        .row li{
+            list-style:none;
+        }
+
+        .row h4 {
+            color: white;
+            font-weight:bolder;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="backdrop"></div>
+    @*<div class="modal">
+            <h1 class="modal__title">Do you want to continue?</h1>
+            <div class="modal__actions">
+                <a href="start-hosting/index.html" class="modal__action">Yes!</a>
+                <button class="modal__action modal__action--negative" type="button">No!</button>
+            </div>
+        </div>*@
+    <header class="main-header">
+        <div>
+            <button class="toggle-button">
+                <span class="toggle-button__bar"></span>
+                <span class="toggle-button__bar"></span>
+                <span class="toggle-button__bar"></span>
+            </button>
+            <a href="../Home/Index" class="main-header__brand">
+                <img src="~/Images/pvms.png" alt="logo">
+            </a>
+            <p class="header-title">Passport Seva</p>
+        </div>
+        <nav class="main-nav">
+            <ul class="main-nav__items">
+                <li class="main-nav__item">
+                    <a href="~/Cont/About_us_Passport.html">About Us</a>
+                </li>
+                <li class="main-nav__item">
+                    <a href="#services">Services</a>
+                </li>
+                <li class="main-nav__item">
+                    <a href="#contact">Contact Us</a>
+                </li>
+                <li class="main-nav__item main-nav__item--cta">
+                    <a href="/User/userLogin">Login</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <nav class="mobile-nav">
+        <ul class="mobile-nav__items">
+            <li class="mobile-nav__item">
+                <a href="~/Cont/About_us_Passport.html">About Us</a>
+            </li>
+            <li class="mobile-nav__item">
+                <a href="#services">Services</a>
+            </li>
+            <li class="mobile-nav__item">
+                <a href="#contact">Contact Us</a>
+            </li>
+            <li class="mobile-nav__item mobile-nav__item--cta">
+                <a href="/User/userLogin">Login</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="renderbody">
+        @RenderBody()
+    </div>
+    <footer class="main-footer">
+        <div class="footer" id="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-column col-md-4 col-xs-12">
+                        <div class="first">
+                            <h4 style="padding-left:30px">External Links</h4>
+                            <ul><li><a class="footer-link" href="https://www.mea.gov.in/">Ministry of External Affairs</a></li></ul>
+                            <ul><li><a class="footer-link" href="https://www.india.gov.in/">National Port of India</a></li></ul>
+                            <ul><li><a class="footer-link" href="https://boi.gov.in/">Bureau of Immigration </a></li></ul>
+                            <ul><li><a class="footer-link" href="https://www.nvsp.in/">National Voters Services Portal</a></li></ul>
+                            <ul><li><a class="footer-link" href="https://www.ncwwomenhelpline.in/">NCW Women Help Line</a></li></ul>
+                        </div>
+                    </div>
+
+                    <div class="footer-column col-md-4 col-xs-12">
+                        <div class="second">
+                            <h4 style="padding-left:30px"> Legal Information</h4>
+                            <ul> <li><a class="footer-link" href="~/Cont/tc1.html">Terms & Conditions</a></li></ul>
+                            <ul><li><a class="footer-link" href="~/Cont/PP.html">Privacy Policy</a></li></ul>
+                            <ul><li><a class="footer-link" href="~/Cont/CP.html">Copyright Policy</a></li></ul>
+                            <ul><li><a class="footer-link" href="~/Cont/hpp.html">HyperLinking Policy</a></li></ul>
+                        </div>
+                    </div>
+
+                    <div class="footer-column col-md-4 col-xs-12">
+                        <div class="third">
+                            <h4 style="padding-left:30px">Help</h4>
+                            <ul><li><a class="footer-link" href="~/Cont/FAQ1.html">FAQs</a></li></ul>
+                            <ul><li><a class="footer-link" href="~/Cont/About_us_Passport.html">About Us</a></li></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/Scripts/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,225 @@
+﻿@{
+    Layout = "~/Views/Shared/_PresentMyLogin.cshtml";
+}
+<head>
+    @*<link href="~/Styles/card.css" rel="stylesheet" />*@
+    <style>
+        .row {
+            display: flex;
+            align-content: center;
+            justify-content: center;
+        }
+
+        .card {
+            padding: 10px;
+            height: 300px;
+            width: 400px;
+            padding-left: 0px;
+            padding-right: 90px;
+            margin-left: 100px;
+            border-radius: 25px;
+            display: block;
+            overflow: hidden;
+        }
+
+        .card-body {
+            height: 250px;
+            width: 400px;
+            padding-left: 15px;
+            padding-right: 15px;
+            margin-left: 0px;
+            border-radius: 25px;
+        }
+
+        .card-body {
+            background-color: rgb(2,8,8,0.5);
+            color: white;
+            text-align: center;
+        }
+
+
+        .card-title {
+            display: inline-block;
+            font-size: 1.2rem;
+        }
+
+        .card-text {
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 10px 20px rgba(0,0,0,.12), 0px 4px 8px rgba(0,0,0,.06);
+        }
+
+        .container {
+            height: 100vh;
+            width: 100%;
+            background: url("https://www.freevector.com/uploads/vector/preview/2446/FreeVector-Continents-Map.jpg") repeat;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0px;
+            padding-bottom: 0px;
+        }
+
+        .submit-button {
+            padding: 10px 20px;
+            background-color: #3c07a6;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            text-decoration: none;
+            align-content: center;
+            position: relative;
+            top: 15px;
+            border-radius:10px;
+        }
+
+        .submit-button:hover{
+            font-weight:bolder;
+        }
+        .form {
+            margin-top: 70px;
+        }
+    </style>
+    <style>
+        #popup-dialog {
+            display: none;
+            position: fixed;
+            top: 48%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            height: 150px;
+            width: 400px;
+            margin-left: 20px;
+            border-radius: 10px;
+        }
+
+        #popup-message {
+            margin-top: 8px;
+        }
+
+        #close-button {
+            padding: 10px 20px;
+            background-color: #3c07a6;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-left:150px;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            const flag = '@ViewBag.msg';
+            if (flag == "True") {
+                const msg1 = '@ViewBag.msg1';
+                const msg2 = '@ViewBag.msg2';
+                $("#popup-dialog").fadeIn();
+                $("#popup-message").text(`${msg1}` + `${msg2}`);
+                $("#close-button").on("click", function () {
+                    $("#popup-dialog").fadeOut();
+
+            });
+        }
+        });
+    </script>
+
+</head>
+
+
+
+
+
+<body>
+    <div class="container">
+        @*@if (!string.IsNullOrEmpty(ViewBag.msg1))
+            {
+                <div class="card1">
+                    <div class="content">
+                        <div class="front">
+                            @ViewBag.msg1
+                        </div>
+                        <div class="back">
+                            @ViewBag.msg2
+                        </div>
+                    </div>
+                </div>
+            }*@
+        <div class="form">
+            @using (Html.BeginForm())
+            {
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Get a New Passport</h5>
+                                <p class="card-text">Apply for a new passport to start your global journey.</p>
+                                @*<a href="/PassportReg/PassportRegistration" class="submit-button">APPLY PASSPORT</a>*@
+                                <input type="submit" class="submit-button" name="btn" value="APPLY PASSPORT" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Explore New Destinations</h5>
+                                <p class="card-text">Apply for a visa to visit exciting destinations around the world.</p>
+                                @*<a href="/VisaReg/VisaRegistration" class="submit-button">APPLY VISA</a>*@
+                                <input type="submit" class="submit-button" name="btn" value="APPLY VISA" />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Renew Your Passport</h5>
+                                <p class="card-text">Renew your existing passport for uninterrupted travel.</p>
+                                @*<a href="/PassportRenewal/Renewal" class="submit-button">PASSPORT RENEWAL</a>*@
+                                <input type="submit" class="submit-button" name="btn" value="PASSPORT RENEWAL" />
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Cancel Your Visa</h5>
+                                <p class="card-text">Cancel your existing visa and manage your travel plans.</p>
+
+                                @*<a href="/Visa_Cancellation/VisaCancellation" class="submit-button">VISA CANCELLATION</a>*@
+                                <input type="submit" class="submit-button" name="btn" value="VISA CANCELLATION" />
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+    <div id="popup-dialog">
+        <b><p id="popup-message"></p></b>
+        <button id="close-button">OKAY!</button>
+    </div>
+</body>
+
+
+
+
+
+

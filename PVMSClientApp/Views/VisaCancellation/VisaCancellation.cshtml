@@ -1,0 +1,146 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_PresentMyLogin.cshtml";
+    ViewBag.Title = "VisaCancellation";
+}
+
+<style>
+    .form {
+        display: inline-block;
+        background-color: #d5d8ec;
+        position: relative;
+        top: 4px;
+        margin-top: 200px;
+        margin-left: 500px;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    .container {
+        height: 100vh;
+        width: 100%;
+        background: url("https://www.freevector.com/uploads/vector/preview/2446/FreeVector-Continents-Map.jpg");
+        background-size: contain;
+    }
+
+    .form-input {
+        padding: 5px;
+        width: 200px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin: 5px 0;
+    }
+
+    .submit-button {
+        padding: 10px 30px;
+        background-color: #3c07a6;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+        text-decoration: none;
+        display: inline-block;
+        vertical-align: middle;
+        font-size: medium;
+        font-weight: bold;
+        font-family: "Montserrat", sans-serif;
+    }
+
+        .submit-button:hover {
+            color: #3c07a6;
+            background-color: white;
+            border: 2px solid #3c07a6;
+        }
+
+    .radio-button {
+        margin-right: 5px;
+    }
+    .alert-box {
+        position: fixed;
+        top: -100px;
+        left: 50%;
+        transform: translateX(-50%) translateY(0);
+        height: 150px;
+        width: 300px;
+        background-color: white;
+        border: 1px solid #3c07a6;
+        border-radius: 5px;
+        box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+        padding: 15px;
+        text-align: center;
+        z-index: 1000;
+        opacity: 0;
+        transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        font-weight: bold;
+    }
+
+    #alertText {
+        display: block;
+    }
+
+    .alert-box.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(300px);
+    }
+
+    td a {
+        color: #3c07a6;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $("#createButton").click(function (event) {
+            event.preventDefault();
+            $("#alertBox").addClass("show");
+        });
+
+
+        $("#okButton").click(function () {
+            $("#alertBox").removeClass("show");
+            $("#fromCaptcha").unbind("submit").submit();
+        });
+        $("#noButton").click(function () {
+            $("#alertBox").removeClass("show");
+        });
+    });
+
+</script>
+<div class="container">
+    <div class="form">
+        @using (Html.BeginForm())
+        {
+            
+            <table>
+                <tr><td>User Id:</td><td>@ViewBag.userId</td></tr>
+                <tr><td>Passport Id:</td><td>@ViewBag.passportId</td></tr>
+                @*<tr><td>Visa Id:</td><td>@ViewBag.visaId</td></tr>*@
+                <tr><td>Cancel for the country:</td><td>@Html.DropDownList("country", new SelectList(ViewBag.aclist, "Country"), "Select", new { @class = "form-input" })</td></tr>
+                <tr class="date" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">
+                    <td>Date of Cancellation:</td>
+                    <td style="position:relative;left:40px">
+                        @DateTime.Now.ToString("yyyy-MM-dd")
+                    </td>
+                    <td>@Html.ValidationMessage("doc", new { style = "color: red;" })</td>
+                </tr>
+                <tr>
+                <tr>
+                    <td><input id="createButton" type="submit" class="submit-button" value="Cancel Visa" /></td>
+                    <td>@Html.ActionLink("Back", "Index", "Services", null, new { @class = "submit-button" })</td>
+                </tr>
+
+            </table>
+            if (@ViewBag.msg != null)
+            {
+                @ViewBag.msg;
+            }
+        }
+    </div>
+</div>
+
+<div id="alertBox" class="alert-box">
+    <span id="alertText">Please check your details before submission,Are you sure want to submit?</span>
+    <button id="okButton" class="submit-button">Yes</button>
+    <button id="noButton" class="submit-button">No</button>
+</div>
